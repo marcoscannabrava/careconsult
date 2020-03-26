@@ -1,36 +1,23 @@
 ---
 templateKey: index-page
-title: Great coffee with a conscience
+title: Free Video Health Consultations
 image: /img/home-jumbotron.jpg
-heading: Great coffee with a conscience
-subheading: Support sustainable farming while enjoying a cup
+heading: Get Connected while Social Distancing
+subheading: Get help safely from home from licensed healthcare professionals
 mainpitch:
-  title: Why Kaldi
+  title: Why CareConsult
   description: >
-    Kaldi is the coffee store for everyone who believes that great coffee
-    shouldn't just taste good, it should do good too. We source all of our beans
-    directly from small scale sustainable farmers and make sure part of the
-    profits are reinvested in their communities.
+    The Covid-19 pandemic is straining healthcare systems around the globe. CareConsult was created to connect licensed volunteer health professionals with patients at home to reduce the burden on hospitals and clinics. 
 description: >-
-  Kaldi is the ultimate spot for coffee lovers who want to learn about their
-  java’s origin and support the farmers that grew it. We take coffee production,
-  roasting and brewing seriously and we’re glad to pass that knowledge to
-  anyone.
+  CareConsult relies on its network of volunteer health professionals such as doctors, nurses, and mental health experts.
 intro:
   blurbs:
-    - image: /img/coffee.png
+    - image: /img/stethoscope.png
       text: >
-        We sell green and roasted coffee beans that are sourced directly from
-        independent farmers and farm cooperatives. We’re proud to offer a
-        variety of coffee beans grown with great care for the environment and
-        local communities. Check our post or contact us directly for current
-        availability.
-    - image: /img/coffee-gear.png
+        Patients who are having concerning symptoms can register for a free account and schedule a video conferencing appointment with a healthcare professional
+    - image: /img/calendar.png
       text: >
-        We offer a small, but carefully curated selection of brewing gear and
-        tools for every taste and experience level. No matter if you roast your
-        own beans or just bought your first french press, you’ll find a gadget
-        to fall in love with in our shop.
+        Healthcare workers can sign up for an account and then select their availability. They will be notified when a patient books a consultation.
     - image: /img/tutorials.png
       text: >
         Love a great cup of coffee, but never knew how to make one? Bought a
