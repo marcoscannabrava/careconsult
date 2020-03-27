@@ -86,6 +86,12 @@ const Navbar = class extends React.Component {
               */}
             </div>
             <div className="navbar-end has-text-centered">
+            <Link className="navbar-item" to="/contact/examples">
+                Sign Up
+              </Link>
+            <Link className="navbar-item" to="/contact/examples">
+                Log In
+              </Link>
               <a
                 className="navbar-item"
                 href="https://github.com/marcoscannabrava/free-covid-consultation-calendar"
@@ -96,6 +102,7 @@ const Navbar = class extends React.Component {
                   <img src={github} alt="Github" />
                 </span>
               </a>
+              
             </div>
           </div>
         </div>
