@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import PasswordForgetForm from '../components/PasswordForget';
 
 const PasswordForgetPage = () => (

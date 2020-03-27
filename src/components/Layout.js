@@ -1,58 +1,47 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
-import './all.sass'
-import useSiteMetadata from './SiteMetadata'
-import { withPrefix } from 'gatsby'
+import React, { Component, Fragment } from 'react';
 
-const TemplateWrapper = ({ children }) => {
-  const { title, description } = useSiteMetadata()
-  return (
-    <div>
-      <Helmet>
-        <html lang="en" />
-        <title>{title}</title>
-        <meta name="description" content={description} />
+import Navigation from './Navigation';
+import getFirebase, { FirebaseContext } from './Firebase';
+import withAuthentication from './Session/withAuthentication';
 
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href={`${withPrefix('/')}img/apple-touch-icon.png`}
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          href={`${withPrefix('/')}img/stethoscope-icon.png`}//32x32 is preferred
-          sizes="32x32"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          href={`${withPrefix('/')}img/stethoscope-icon.png`}//16x16 is preferred
-          sizes="16x16"
-        />
+import TemplateWrapper from './LayoutTemplate';
+import Footer from './Footer'
 
-        <link
-          rel="mask-icon"
-          href={`${withPrefix('/')}img/safari-pinned-tab.svg`}
-          color="#ff4400"
-        />
-        <meta name="theme-color" content="#fff" />
+class Layout extends Component {
+  state = {
+    firebase: null,
+  };
 
-        <meta property="og:type" content="business.business" />
-        <meta property="og:title" content={title} />
-        <meta property="og:url" content="/" />
-        <meta
-          property="og:image"
-          content={`${withPrefix('/')}img/og-image.jpg`}
-        />
-      </Helmet>
-      <Navbar />
-      <div>{children}</div>
-      <Footer />
-    </div>
-  )
+  componentDidMount() {
+    const app = import('firebase/app');
+    const auth = import('firebase/auth');
+    const database = import('firebase/database');
+
+    Promise.all([app, auth, database]).then(values => {
+      const firebase = getFirebase(values[0]);
+
+      this.setState({ firebase });
+    });
+  }
+
+  render() {
+    return (
+      <FirebaseContext.Provider value={this.state.firebase}>
+        
+        <AppWithAuthentication {...this.props} />
+        <Footer />
+      </FirebaseContext.Provider>
+    );
+  }
 }
 
-export default TemplateWrapper
+const AppWithAuthentication = withAuthentication(({ children }) => (
+  <Fragment>
+    <Navigation />
+    <TemplateWrapper />
+    <hr />
+    {children}
+  </Fragment>
+));
+
+export default Layout;
