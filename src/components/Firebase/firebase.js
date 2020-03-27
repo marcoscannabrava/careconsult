@@ -1,10 +1,12 @@
 const config = {
-  apiKey: process.env.GATSBY_API_KEY,
-  authDomain: process.env.GATSBY_AUTH_DOMAIN,
-  databaseURL: process.env.GATSBY_DATABASE_URL,
-  projectId: process.env.GATSBY_PROJECT_ID,
-  storageBucket: process.env.GATSBY_STORAGE_BUCKET,
-  messagingSenderId: process.env.GATSBY_MESSAGING_SENDER_ID,
+  apiKey: "AIzaSyB7FklzEDZLECCnRkcBf-gJ6TFYQsRUdh4",
+  authDomain: "care-consult.firebaseapp.com",
+  databaseURL: "https://care-consult.firebaseio.com",
+  projectId: "care-consult",
+  storageBucket: "care-consult.appspot.com",
+  messagingSenderId: "335847761562",
+  appId: "1:335847761562:web:eca3b749dba7a1357fe123",
+  measurementId: "G-QMRWY1XCNP"
 };
 
 class Firebase {
