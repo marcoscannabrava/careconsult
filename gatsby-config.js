@@ -1,3 +1,4 @@
+
 module.exports = {
   siteMetadata: {
     title: 'Gatsby + Netlify CMS Starter',
@@ -75,3 +76,8 @@ module.exports = {
     'gatsby-plugin-netlify', // make sure to keep it last in the array
   ],
 }
+
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
