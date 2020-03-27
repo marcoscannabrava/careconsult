@@ -1,10 +1,7 @@
-
 module.exports = {
   siteMetadata: {
     title: 'CareConsult',
-    description:
-      'Connects patients with volunteer healthcare professionals via a scheduling application.',
-  },
+    description:'Connects patients with volunteer healthcare professionals via a scheduling application.',
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sass',
