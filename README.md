@@ -1,6 +1,12 @@
 # CareConsult
 [Live Site](https://ecstatic-leavitt-3a8f13.netlify.com/)
 
+## Pending Features - Contribute by Forking and PR
+- Calendar Component ([suggestion](https://github.com/jquense/react-big-calendar))
+- SignUp/SignIn screens frontend
+- Firebase functions with Calendar features
+- More branding/marketing assets (text, images)
+
 ## Why CareConsult
 The Covid-19 pandemic is straining healthcare systems around the globe. CareConsult was created to connect licensed volunteer health professionals with patients at home to reduce the burden on hospitals and clinics.
 
