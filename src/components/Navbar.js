@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import github from '../img/github-icon.svg'
 import logo from '../img/logo.svg'
+import * as ROUTES from '../constants/routes';
 
 const Navbar = class extends React.Component {
   constructor(props) {
@@ -74,6 +75,12 @@ const Navbar = class extends React.Component {
               </Link>
               <Link className="navbar-item" to="/contact/examples">
                 Form Examples
+              </Link>
+              <Link className="navbar-item" to={ROUTES.SIGN_UP}>
+                Sign Up
+              </Link>
+              <Link className="navbar-item" to={ROUTES.SIGN_IN}>
+                Log In
               </Link>
             </div>
             <div className="navbar-end has-text-centered">
