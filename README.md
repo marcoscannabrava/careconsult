@@ -21,6 +21,15 @@ Get in touch via the Covid-19 [Global Hackathon Slack Channel](https://join.slac
 - Add other types of certified health professionals? Psychologists etc. 
 - Seed list of providers? Can start with NYC medical board website and scrape Dr list? 
 
+### Installation (development)
+
+```bash
+git clone git@github.com:marcoscannabrava/free-covid-consultation-calendar.git care-consult
+cd care-consult
+yarn
+yarn develop
+```
+
 # Used Gatsby + Netlify CMS Starter
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b654c94e-08a6-4b79-b443-7837581b1d8d/deploy-status)](https://app.netlify.com/sites/gatsby-starter-netlify-cms-ci/deploys)
