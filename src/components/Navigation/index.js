@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import Navbar from '../Navbar'
+
 
 import { AuthUserContext } from '../Session';
 import SignOutButton from '../SignOut';
@@ -42,7 +42,7 @@ const NavigationAuth = ({ authUser }) => (
 );
 
 const NavigationNonAuth = () => (
-  <Navbar />
+  <div></div>
 );
 
 export default Navigation;
