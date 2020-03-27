@@ -30,3 +30,14 @@ Get in touch via the Covid-19 [Global Hackathon Slack Channel](https://join.slac
 This repo contains an example business website that is built with [Gatsby](https://www.gatsbyjs.org/), and [Netlify CMS](https://www.netlifycms.org): **[Demo Link](https://gatsby-netlify-cms.netlify.com/)**.
 
 It follows the [JAMstack architecture](https://jamstack.org) by using Git as a single source of truth, and [Netlify](https://www.netlify.com) for continuous deployment, and CDN distribution.
+
+# 🐣 Gatsby Firebase Starter
+
+[![Build Status](https://travis-ci.org/the-road-to-react-with-firebase/react-gatsby-firebase-authentication.svg?branch=master)](https://travis-ci.org/the-road-to-react-with-firebase/react-gatsby-firebase-authentication) [![Slack](https://slack-the-road-to-learn-react.wieruch.com/badge.svg)](https://slack-the-road-to-learn-react.wieruch.com/) [![Greenkeeper badge](https://badges.greenkeeper.io/the-road-to-react-with-firebase/react-gatsby-firebase-authentication.svg)](https://greenkeeper.io/)
+
+Your minimal yet extensive authentication starter project in Gatsby.js with Firebase and plain React.
+
+* Powered by [Gatsby](https://github.com/gatsbyjs/gatsby)
+* [Tutorial](https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/)
+* [Live Version of half of the Tutorial](https://react-firebase-authentication.wieruch.com/)
+
