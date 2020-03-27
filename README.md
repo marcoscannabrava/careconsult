@@ -1,4 +1,4 @@
-# Care Consult
+# CareConsult
 [Live Site](https://ecstatic-leavitt-3a8f13.netlify.com/)
 
 ## Why CareConsult
