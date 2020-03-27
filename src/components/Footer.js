@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
-import logo from '../img/logo.svg'
+import logo from '../img/careconsult.svg'
 import facebook from '../img/social/facebook.svg'
 import instagram from '../img/social/instagram.svg'
 import twitter from '../img/social/twitter.svg'
@@ -35,10 +35,15 @@ const Footer = class extends React.Component {
                       </Link>
                     </li>
                     <li>
+                      <Link className="navbar-item" to="/contact">
+                        Contact
+                      </Link>
+                    </li>
+                   {/* <li>
                       <Link className="navbar-item" to="/products">
                         Products
                       </Link>
-                    </li>
+                   </li>
                     <li>
                       <Link className="navbar-item" to="/contact/examples">
                         Form Examples
@@ -53,11 +58,11 @@ const Footer = class extends React.Component {
                       >
                         Admin
                       </a>
-                    </li>
+                    </li>*/}
                   </ul>
                 </section>
               </div>
-              <div className="column is-4">
+             {/* <div className="column is-4">
                 <section>
                   <ul className="menu-list">
                     <li>
@@ -65,14 +70,10 @@ const Footer = class extends React.Component {
                         Latest Stories
                       </Link>
                     </li>
-                    <li>
-                      <Link className="navbar-item" to="/contact">
-                        Contact
-                      </Link>
-                    </li>
+                   
                   </ul>
                 </section>
-              </div>
+                  </div>*/}
               <div className="column is-4 social">
                 <a title="facebook" href="https://facebook.com">
                   <img
