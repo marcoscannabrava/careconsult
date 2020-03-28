@@ -1,6 +1,6 @@
 ---
 templateKey: index-page
-title: Free Video Health Consultations
+title: Free Remote Health Consultations
 image: /img/home-jumbotron.jpg
 heading: Get Connected while Social Distancing
 subheading: Get help safely from home from licensed healthcare professionals
