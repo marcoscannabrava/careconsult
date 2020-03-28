@@ -1,23 +1,29 @@
 # CareConsult
 [Live Site](https://ecstatic-leavitt-3a8f13.netlify.com/)
 
-## Pending Features - Contribute by Forking and PR
-- Calendar Component ([suggestion](https://github.com/jquense/react-big-calendar))
-- SignUp/SignIn screens frontend
-- Firebase functions with Calendar features
-- More branding/marketing assets (text, images)
-
 ## Why CareConsult
 The Covid-19 pandemic is straining healthcare systems around the globe. CareConsult was created to connect licensed volunteer health professionals with patients at home to reduce the burden on hospitals and clinics.
 
-The project is actively soliciting contributors. 
-Get in touch via the Covid-19 [Global Hackathon Slack Channel](https://join.slack.com/t/globalcovidhackathon/shared_invite/zt-d25lrhkl-UAKmMq4h_zNzCQhqnNsbfw) and join the #free-covid-consultation channel 
+## Contribute 
+- Check the [Kanban Board](https://github.com/users/marcoscannabrava/projects/1)
+- Join our [Slack Channel #free-covid-consultations @ COVID19 Global Hackathon](https://join.slack.com/t/globalcovidhackathon/shared_invite/zt-d25lrhkl-UAKmMq4h_zNzCQhqnNsbfw)
+- Introduce yourself and let us know what you're working on or if you want to pair with one of us
 
-## MVP
-- Scheduling functionality (Calendly-like solution)
-- Landing page with options: 
-  - Volunteer time
-  - Schedule an appointment
+### Pending Tasks
+- [ ] Calendar Component ([suggestion](https://github.com/jquense/react-big-calendar))
+- [ ] More branding/marketing assets (text, images)
+- [ ] Social Media Assets/Strategy
+- [ ] Better design
+- [ ] Pub
+- [x] SignUp/SignIn screens frontend
+
+#### Pending User Stories
+- [ ] Not Logged: Show Available Slots
+- [ ] Provider Logged Schedule Available Slot
+- [ ] User (“Patient”) Logged: Schedule Appointment
+
+### Wireframe
+![wireframe](care-consult-wireframe-v1.png)
 
 ## Other Features
 - Video chat functionality? Maybe it only needs audio for POC. Could use Jitsi 
@@ -36,23 +42,8 @@ yarn
 yarn develop
 ```
 
-# Used Gatsby + Netlify CMS Starter
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b654c94e-08a6-4b79-b443-7837581b1d8d/deploy-status)](https://app.netlify.com/sites/gatsby-starter-netlify-cms-ci/deploys)
-
-**Note:** This starter uses [Gatsby v2](https://www.gatsbyjs.org/blog/2018-09-17-gatsby-v2/).
-
-This repo contains an example business website that is built with [Gatsby](https://www.gatsbyjs.org/), and [Netlify CMS](https://www.netlifycms.org): **[Demo Link](https://gatsby-netlify-cms.netlify.com/)**.
-
-It follows the [JAMstack architecture](https://jamstack.org) by using Git as a single source of truth, and [Netlify](https://www.netlify.com) for continuous deployment, and CDN distribution.
-
-# 🐣 Gatsby Firebase Starter
-
-[![Build Status](https://travis-ci.org/the-road-to-react-with-firebase/react-gatsby-firebase-authentication.svg?branch=master)](https://travis-ci.org/the-road-to-react-with-firebase/react-gatsby-firebase-authentication) [![Slack](https://slack-the-road-to-learn-react.wieruch.com/badge.svg)](https://slack-the-road-to-learn-react.wieruch.com/) [![Greenkeeper badge](https://badges.greenkeeper.io/the-road-to-react-with-firebase/react-gatsby-firebase-authentication.svg)](https://greenkeeper.io/)
-
-Your minimal yet extensive authentication starter project in Gatsby.js with Firebase and plain React.
-
-* Powered by [Gatsby](https://github.com/gatsbyjs/gatsby)
-* [Tutorial](https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/)
-* [Live Version of half of the Tutorial](https://react-firebase-authentication.wieruch.com/)
-
+# Tech Stack
+- [React + Gatsby](https://www.gatsbyjs.org/)
+- [Firebase](https://firebase.google.com/)
+- [Netlify](https://www.netlify.com/)
+- kudos to: [gatsby-starter-netlify-cms](https://github.com/netlify-templates/gatsby-starter-netlify-cms)
