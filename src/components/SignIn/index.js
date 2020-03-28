@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { navigate } from 'gatsby';
-
+import { GoogleLoginButton,FacebookLoginButton,TwitterLoginButton } from "react-social-login-buttons";
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
@@ -69,9 +69,8 @@ class SignInFormBase extends Component {
           placeholder="Password"
         />
         <button disabled={isInvalid} type="submit">
-          Sign In
+          Login
         </button>
-
         {error && <p>{error.message}</p>}
       </form>
     );
@@ -115,9 +114,8 @@ class SignInGoogleBase extends Component {
     const { error } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In with Google</button>
-
+      <form style={{width:250}}onSubmit={this.onSubmit}>
+         <GoogleLoginButton/>
         {error && <p>{error.message}</p>}
       </form>
     );
@@ -161,9 +159,8 @@ class SignInFacebookBase extends Component {
     const { error } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In with Facebook</button>
-
+      <form style={{width:250}} onSubmit={this.onSubmit}>
+        <FacebookLoginButton/>
         {error && <p>{error.message}</p>}
       </form>
     );
@@ -207,9 +204,8 @@ class SignInTwitterBase extends Component {
     const { error } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In with Twitter</button>
-
+      <form style={{width:250}} onSubmit={this.onSubmit}>
+       <TwitterLoginButton/>
         {error && <p>{error.message}</p>}
       </form>
     );
