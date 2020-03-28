@@ -29,7 +29,7 @@ class MyCalendar extends Component {
     ]
   };
 
-  onEventResize = (type, { event, start, end, allDay }) => {
+  onEventResize = (/*type,*/ { event, start, end, allDay }) => {
     this.setState(state => {
       state.events[0].start = start;
       state.events[0].end = end;
