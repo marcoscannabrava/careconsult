@@ -38,7 +38,11 @@ class MyCalendar extends Component {
   };
 
   onEventDrop = ({ event, start, end, allDay }) => {
-    console.log(start);
+    this.setState(state => {
+      state.events[0].start = start;
+      state.events[0].end = end;
+      return { events: state.events };
+    });
   };
 
   /* When you choose a particular slot on the calendar */
