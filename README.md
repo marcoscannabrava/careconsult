@@ -14,7 +14,6 @@ The Covid-19 pandemic is straining healthcare systems around the globe. CareCons
 - [ ] More branding/marketing assets (text, images)
 - [ ] Social Media Assets/Strategy
 - [ ] Better design
-- [ ] Pub
 - [x] SignUp/SignIn screens frontend
 
 #### Pending User Stories
