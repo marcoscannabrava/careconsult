@@ -1,7 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
 import Calendar from '../components/Calendar';
-
 import Layout from '../components/Layout';
 import {
   withAuthorization,
