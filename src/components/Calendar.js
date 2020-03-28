@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
+import ReactDOM from 'react-dom';
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import Layout from './Layout';
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
+
+
 const localizer = momentLocalizer(moment);
-const DnDCalendar = withDragAndDrop(Calendar);
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 const calEvents = [
   {
@@ -88,7 +90,7 @@ class MyCalendar extends React.Component {
      let newId = Math.max(...idList) + 1
      let hour = {
      id: newId,
-     title: 'New Event',
+     //title: 'New Event',
      allDay: event.slots.length == 1,
      start: event.start,
      end: event.end,
@@ -96,6 +98,26 @@ class MyCalendar extends React.Component {
      this.setState({
        events: this.state.events.concat([hour]),
      })
+  }
+
+  componentDidMount(){
+    const eventDiv = document.getElementsByClassName('rbc-event');
+    console.log(eventDiv);
+    for(let elem of eventDiv){
+      let el = document.createElement('div');
+      el.innerHTML = "X"
+      elem.appendChild(el)
+    }
+  }
+
+  componentDidUpdate(){
+    const eventDiv = document.getElementsByClassName('rbc-event');
+    console.log(eventDiv);
+    for(let elem of eventDiv){
+      let el = document.createElement('div');
+      el.innerHTML = "X"
+      elem.appendChild(el)
+    }
   }
 
   render() {
