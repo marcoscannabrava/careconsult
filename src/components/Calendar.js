@@ -8,74 +8,113 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
+const DragAndDropCalendar = withDragAndDrop(Calendar)
+const calEvents = [
+  {
+    start: moment().toDate(),
+    end: moment()
+      .add(1, "hours")
+      .toDate(),
+    allDay: false,
+    title: "Some title",
+    id:1
+  },
+  {
+    start: moment().toDate(),
+    end: moment()
+      .add(2, "hours")
+      .toDate(),
+    allDay: false,
+    title: "Another Title",
+    id:2
+  }
+]
 
-class MyCalendar extends Component {
-  state = {
-    events: [
-      {
-        start: moment().toDate(),
-        end: moment()
-          .add(1, "days")
-          .toDate(),
-        title: "Some title"
-      },
-      {
-        start: moment().toDate(),
-        end: moment()
-          .add(2, "days")
-          .toDate(),
-        title: "Another Title"
-      }
-    ]
-  };
 
-  onEventResize = (/*type,*/ { event, start, end, allDay }) => {
-    this.setState(state => {
-      state.events[0].start = start;
-      state.events[0].end = end;
-      return { events: state.events };
-    });
-  };
+class MyCalendar extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      events: calEvents,
+      defaultView:'week'
+    }
 
-  onEventDrop = ({ event, start, end, allDay }) => {
-    this.setState(state => {
-      state.events[0].start = start;
-      state.events[0].end = end;
-      return { events: state.events };
-    });
-  };
-
-  /* When you choose a particular slot on the calendar */
-  onSlotChange(slotInfo) {
-    var startDate = moment(slotInfo.start.toLocaleString()).format("YYYY-MM-DD HH:mm:ss");
-    var endDate = moment(slotInfo.end.toLocaleString()).format("YYYY-MM-DD HH:mm:ss");
-    console.log('startTime', startDate); //shows the start time chosen
-    console.log('endTime', endDate); //shows the end time chosen
+    this.moveEvent = this.moveEvent.bind(this)
+    this.newEvent = this.newEvent.bind(this)
   }
 
-  /* When you click on an already booked slot */
-  onEventClick(event) {
-    console.log(event) //Shows the event details provided while booking
-  } 
+  moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
+    const { events } = this.state
+
+    const idx = events.indexOf(event)
+    let allDay = event.allDay
+
+    if (!event.allDay && droppedOnAllDaySlot) {
+      allDay = true
+    } else if (event.allDay && !droppedOnAllDaySlot) {
+      allDay = false
+    }
+
+    const updatedEvent = { ...event, start, end, allDay }
+
+    const nextEvents = [...events]
+    nextEvents.splice(idx, 1, updatedEvent)
+
+    this.setState({
+      events: nextEvents,
+    })
+
+    // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
+  }
+
+  resizeEvent = ({ event, start, end }) => {
+    const { events } = this.state
+
+    const nextEvents = events.map(existingEvent => {
+      return existingEvent.id == event.id
+        ? { ...existingEvent, start, end }
+        : existingEvent
+    })
+
+    this.setState({
+      events: nextEvents,
+    })
+
+    //alert(`${event.title} was resized to ${start}-${end}`)
+  }
+
+  newEvent(event) {
+     let idList = this.state.events.map(a => a.id)
+     let newId = Math.max(...idList) + 1
+     let hour = {
+     id: newId,
+     title: 'New Event',
+     allDay: event.slots.length == 1,
+     start: event.start,
+     end: event.end,
+     }
+     this.setState({
+       events: this.state.events.concat([hour]),
+     })
+  }
 
   render() {
+    console.log(this.state);
     return (
-    <div>
-        <DnDCalendar
-         selectable
-         onSelectEvent={event => this.onEventClick(event)}
-         onSelectSlot={(slotInfo) => this.onSlotChange(slotInfo) }
-          defaultDate={moment().toDate()}
-          defaultView="month"
-          events={this.state.events}
-          localizer={localizer}
-          onEventDrop={this.onEventDrop}
-          onEventResize={this.onEventResize}
-          resizable
-          style={{ height: "100vh" }}
-        />
-      </div>
-    );
+      <DragAndDropCalendar
+        selectable
+        localizer={localizer}
+        events={this.state.events}
+        onEventDrop={this.moveEvent}
+        resizable
+        onEventResize={this.resizeEvent}
+        onSelectSlot={this.newEvent}
+        onDragStart={console.log}
+        defaultView={this.state.defaultView}
+        defaultDate={new Date()}
+        style={{ height: "100vh" }}
+      />
+    )
   }
 }
 
