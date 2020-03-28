@@ -80,9 +80,9 @@ const Navbar = class extends React.Component {
               */}
             </div>
             <div className="navbar-end has-text-centered">
-            <Link className="navbar-item" to={ROUTES.SIGN_UP}> 
+            {/*<Link className="navbar-item" to={ROUTES.SIGN_UP}> 
                 Sign Up
-              </Link>
+            </Link>*/}
               <Link className="navbar-item" to={ROUTES.SIGN_IN}>
                 Log In
               </Link>
