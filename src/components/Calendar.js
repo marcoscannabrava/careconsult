@@ -6,14 +6,8 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import Layout from './Layout';
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-<<<<<<< HEAD
 import { createSlot, getTimeSlots } from './Firebase/calendar';
-=======
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
-
->>>>>>> added remove icon to events
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar)
@@ -109,28 +103,13 @@ class MyCalendar extends React.Component {
     })
   }
 
-<<<<<<< HEAD
-  /*componentDidMount(){
-    const eventDiv = document.getElementsByClassName('rbc-event');
-    // console.log(eventDiv);
-    for(let elem of eventDiv){
-      let el = document.createElement('div');
-      el.innerHTML = 'X';
-      el.style.left = "-11px";
-      el.style.position = "relative";
-      elem.appendChild(el);
-    }
-<<<<<<< HEAD
 
-    console.log('events');
-    console.log(this.state.events);
+componentDidMount(){
     this.updateCalendarEvents = getTimeSlots(events => this.setState({ events }));
-  }
-=======
-  }*/
->>>>>>> added remove icon to events
-=======
-  onClick(pEvent,event) {
+}
+
+
+onClick(pEvent,event) {
     if(event.target.className === "rbc-trash"){
       const r = window.confirm("Would you like to remove this event?")
       if(r === true){
@@ -144,9 +123,8 @@ class MyCalendar extends React.Component {
    }
     
   }
->>>>>>> events can now be removed on X click
 
-  componentDidUpdate(){
+componentDidUpdate(){
     const eventDiv = document.getElementsByClassName('rbc-event');
     // console.log(eventDiv);
     for(let elem of eventDiv){
