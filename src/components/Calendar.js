@@ -8,6 +8,7 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { createSlot, getTimeSlots } from './Firebase/calendar';
 
+
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 const calEvents = [
@@ -39,7 +40,7 @@ class MyCalendar extends React.Component {
       events: calEvents,
       defaultView:'week'
     }
-
+    this.onClick = this.onClick.bind(this);
     this.moveEvent = this.moveEvent.bind(this)
     this.newEvent = this.newEvent.bind(this)
   }
@@ -102,28 +103,40 @@ class MyCalendar extends React.Component {
     })
   }
 
-  componentDidMount(){
-    const eventDiv = document.getElementsByClassName('rbc-event');
-    // console.log(eventDiv);
-    for(let elem of eventDiv){
-      let el = document.createElement('div');
-      el.innerHTML = "X"
-      elem.appendChild(el)
-    }
 
-    console.log('events');
-    console.log(this.state.events);
+componentDidMount(){
     this.updateCalendarEvents = getTimeSlots(events => this.setState({ events }));
+}
+
+
+onClick(pEvent,event) {
+    if(event.target.className === "rbc-trash"){
+      const r = window.confirm("Would you like to remove this event?")
+      if(r === true){
+        this.setState((prevState, props) => {
+          const events = [...prevState.events]
+          const idx = events.indexOf(pEvent)
+          events.splice(idx, 1);
+          return { events };
+        });
+      }
+   }
+    
   }
 
-  componentDidUpdate(){
+componentDidUpdate(){
     const eventDiv = document.getElementsByClassName('rbc-event');
     // console.log(eventDiv);
     for(let elem of eventDiv){
+      if(!elem.querySelector(".rbc-trash")){ //prevent duplicate icons from being added to event
       let el = document.createElement('div');
-      el.innerHTML = "X"
+      el.innerHTML = 'X';
+      el.style.left = "-11px";
+      el.style.position = "relative";
+      el.className = "rbc-trash"
       elem.appendChild(el)
     }
+  }
   }
 
   render() {
@@ -141,6 +154,7 @@ class MyCalendar extends React.Component {
         defaultView={this.state.defaultView}
         defaultDate={new Date()}
         style={{ height: "100vh" }}
+        onSelectEvent = {this.onClick}
       />
     )
   }
