@@ -6,8 +6,7 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import Layout from './Layout';
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
-
+import { createSlot, getTimeSlots } from './Firebase/calendar';
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar)
@@ -86,33 +85,40 @@ class MyCalendar extends React.Component {
   }
 
   newEvent(event) {
-     let idList = this.state.events.map(a => a.id)
-     let newId = Math.max(...idList) + 1
-     let hour = {
-     id: newId,
-     //title: 'New Event',
-     allDay: event.slots.length == 1,
-     start: event.start,
-     end: event.end,
-     }
-     this.setState({
-       events: this.state.events.concat([hour]),
-     })
+    let idList = this.state.events.map(a => a.id)
+    let newId = Math.max(...idList) + 1
+    let timeSlot = {
+    id: newId,
+    title: 'New Volunteer Time Slot',
+    allDay: event.slots.length == 1,
+    start: event.start,
+    end: event.end,
+    };
+
+    createSlot(timeSlot);
+
+    this.setState({
+      events: this.state.events.concat([timeSlot]),
+    })
   }
 
   componentDidMount(){
     const eventDiv = document.getElementsByClassName('rbc-event');
-    console.log(eventDiv);
+    // console.log(eventDiv);
     for(let elem of eventDiv){
       let el = document.createElement('div');
       el.innerHTML = "X"
       elem.appendChild(el)
     }
+
+    console.log('events');
+    console.log(this.state.events);
+    this.updateCalendarEvents = getTimeSlots(events => this.setState({ events }));
   }
 
   componentDidUpdate(){
     const eventDiv = document.getElementsByClassName('rbc-event');
-    console.log(eventDiv);
+    // console.log(eventDiv);
     for(let elem of eventDiv){
       let el = document.createElement('div');
       el.innerHTML = "X"
@@ -121,7 +127,7 @@ class MyCalendar extends React.Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <DragAndDropCalendar
         selectable
