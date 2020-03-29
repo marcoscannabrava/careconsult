@@ -46,7 +46,7 @@ class MyCalendar extends React.Component {
       events: calEvents,
       defaultView:'week'
     }
-
+    this.onClick = this.onClick.bind(this);
     this.moveEvent = this.moveEvent.bind(this)
     this.newEvent = this.newEvent.bind(this)
   }
@@ -109,6 +109,7 @@ class MyCalendar extends React.Component {
     })
   }
 
+<<<<<<< HEAD
   /*componentDidMount(){
     const eventDiv = document.getElementsByClassName('rbc-event');
     // console.log(eventDiv);
@@ -128,6 +129,22 @@ class MyCalendar extends React.Component {
 =======
   }*/
 >>>>>>> added remove icon to events
+=======
+  onClick(pEvent,event) {
+    if(event.target.className === "rbc-trash"){
+      const r = window.confirm("Would you like to remove this event?")
+      if(r === true){
+        this.setState((prevState, props) => {
+          const events = [...prevState.events]
+          const idx = events.indexOf(pEvent)
+          events.splice(idx, 1);
+          return { events };
+        });
+      }
+   }
+    
+  }
+>>>>>>> events can now be removed on X click
 
   componentDidUpdate(){
     const eventDiv = document.getElementsByClassName('rbc-event');
@@ -159,6 +176,7 @@ class MyCalendar extends React.Component {
         defaultView={this.state.defaultView}
         defaultDate={new Date()}
         style={{ height: "100vh" }}
+        onSelectEvent = {this.onClick}
       />
     )
   }
