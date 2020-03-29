@@ -11,13 +11,15 @@ import { PasswordForgetLink } from '../components/PasswordForget';
 
 const SignInPage = () => (
   <Fragment>
-    <h1>SignIn</h1>
     <SignInForm />
+    <div className="signup-form">
+    <p>------- or--------</p>
     <SignInGoogle />
     <SignInFacebook />
     <SignInTwitter />
     <PasswordForgetLink />
     <SignUpLink />
+    </div>
   </Fragment>
 );
 
