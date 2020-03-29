@@ -1,7 +1,6 @@
 import getFirebase from './firebase';
 
 export const createSlot = (hour) => {
-  // console.log(getFirebase());
   const currentUser = getFirebase().auth.currentUser;
   
   const slotKey = getFirebase().db.ref('timeSlots').push().key;

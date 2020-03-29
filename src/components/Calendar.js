@@ -96,10 +96,6 @@ class MyCalendar extends React.Component {
     };
 
     createSlot(timeSlot);
-
-    this.setState({
-      events: this.state.events.concat([timeSlot]),
-    })
   }
 
   componentDidMount(){
