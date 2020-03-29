@@ -6,7 +6,14 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import Layout from './Layout';
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+<<<<<<< HEAD
 import { createSlot, getTimeSlots } from './Firebase/calendar';
+=======
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+
+
+>>>>>>> added remove icon to events
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar)
@@ -102,28 +109,39 @@ class MyCalendar extends React.Component {
     })
   }
 
-  componentDidMount(){
+  /*componentDidMount(){
     const eventDiv = document.getElementsByClassName('rbc-event');
     // console.log(eventDiv);
     for(let elem of eventDiv){
       let el = document.createElement('div');
-      el.innerHTML = "X"
-      elem.appendChild(el)
+      el.innerHTML = 'X';
+      el.style.left = "-11px";
+      el.style.position = "relative";
+      elem.appendChild(el);
     }
+<<<<<<< HEAD
 
     console.log('events');
     console.log(this.state.events);
     this.updateCalendarEvents = getTimeSlots(events => this.setState({ events }));
   }
+=======
+  }*/
+>>>>>>> added remove icon to events
 
   componentDidUpdate(){
     const eventDiv = document.getElementsByClassName('rbc-event');
     // console.log(eventDiv);
     for(let elem of eventDiv){
+      if(!elem.querySelector(".rbc-trash")){ //prevent duplicate icons from being added to event
       let el = document.createElement('div');
-      el.innerHTML = "X"
+      el.innerHTML = 'X';
+      el.style.left = "-11px";
+      el.style.position = "relative";
+      el.className = "rbc-trash"
       elem.appendChild(el)
     }
+  }
   }
 
   render() {
