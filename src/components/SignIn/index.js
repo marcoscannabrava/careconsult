@@ -53,22 +53,22 @@ class SignInFormBase extends Component {
     const isInvalid = password === '' || email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <form onSubmit={this.onSubmit} className="signup-form">
+        <input className="signup-form_input"
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
         />
-        <input
+        <input className="signup-form_input"
           name="password"
           value={password}
           onChange={this.onChange}
           type="password"
           placeholder="Password"
         />
-        <button disabled={isInvalid} type="submit">
+        <button disabled={isInvalid} type="submit" className="signup-form_button">
           Login
         </button>
         {error && <p>{error.message}</p>}
@@ -114,7 +114,7 @@ class SignInGoogleBase extends Component {
     const { error } = this.state;
 
     return (
-      <form style={{width:250}}onSubmit={this.onSubmit}>
+      <form className="signup-form" onSubmit={this.onSubmit}>
          <GoogleLoginButton/>
         {error && <p>{error.message}</p>}
       </form>
@@ -159,7 +159,7 @@ class SignInFacebookBase extends Component {
     const { error } = this.state;
 
     return (
-      <form style={{width:250}} onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit}>
         <FacebookLoginButton/>
         {error && <p>{error.message}</p>}
       </form>
@@ -204,7 +204,7 @@ class SignInTwitterBase extends Component {
     const { error } = this.state;
 
     return (
-      <form style={{width:250}} onSubmit={this.onSubmit}>
+      <form className="signup-form" onSubmit={this.onSubmit}>
        <TwitterLoginButton/>
         {error && <p>{error.message}</p>}
       </form>

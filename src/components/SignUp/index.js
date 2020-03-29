@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  userType:'provider',
   isAdmin: false,
   error: null,
 };
@@ -69,6 +70,7 @@ class SignUpFormBase extends Component {
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+
   };
 
   onChangeCheckbox = event => {
@@ -81,6 +83,7 @@ class SignUpFormBase extends Component {
       email,
       passwordOne,
       passwordTwo,
+      userType,
       isAdmin,
       error,
     } = this.state;
@@ -92,35 +95,46 @@ class SignUpFormBase extends Component {
       username === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      
+      <form className="signup-form" onSubmit={this.onSubmit}>
+        <input className="signup-form_input"
           name="username"
           value={username}
           onChange={this.onChange}
           type="text"
           placeholder="Full Name"
         />
-        <input
+        <input className="signup-form_input"
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
         />
-        <input
+        <input className="signup-form_input"
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
           placeholder="Password"
         />
-        <input
+        <input className="signup-form_input"
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
           type="password"
           placeholder="Confirm Password"
         />
+         <select className="signup-form_select"
+          name="userType"
+          value={userType}
+          onChange={this.onChange}>
+             <option value="provider">Health Care Professional</option>
+             <option value="patient">Patient</option>
+          </select>
+        <button className="signup-form_button" disabled={isInvalid} type="submit">
+          Sign Up
+        </button>
         <label>
           Admin:
           <input
@@ -130,9 +144,6 @@ class SignUpFormBase extends Component {
             onChange={this.onChangeCheckbox}
           />
         </label>
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
 
         {error && <p>{error.message}</p>}
       </form>
