@@ -12431,7 +12431,11 @@ react-display-name@^0.2.4:
   resolved "https://registry.yarnpkg.com/react-display-name/-/react-display-name-0.2.5.tgz#304c7cbfb59ee40389d436e1a822c17fe27936c6"
   integrity sha512-I+vcaK9t4+kypiSgaiVWAipqHRXYmZIuAiS8vzFvXHHXVigg/sMKwlRgLy6LH2i3rmP+0Vzfl5lFsFRwF1r3pg==
 
+<<<<<<< HEAD
 react-dnd-html5-backend@10.0.2:
+=======
+react-dnd-html5-backend@^10.0.2:
+>>>>>>> cff2a1c7a98b421292594ef650bcebc417b478f8
   version "10.0.2"
   resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-10.0.2.tgz#15cb9d2b923f43576a136df854e288cb5969784c"
   integrity sha512-ny17gUdInZ6PIGXdzfwPhoztRdNVVvjoJMdG80hkDBamJBeUPuNF2Wv4D3uoQJLjXssX1+i9PhBqc7EpogClwQ==
@@ -12445,7 +12449,11 @@ react-dnd-html5-backend@^7.2.0:
   dependencies:
     dnd-core "^7.7.0"
 
+<<<<<<< HEAD
 react-dnd@10.0.2:
+=======
+react-dnd@^10.0.2:
+>>>>>>> cff2a1c7a98b421292594ef650bcebc417b478f8
   version "10.0.2"
   resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-10.0.2.tgz#a6ad8eb3d9f2c573031f7ce05012e5c767a0b1fc"
   integrity sha512-SC2Ymvntynhoqtf5zaFhZscm9xenCoMofilxPdlwUlaelAzmbl9fw82C4ZJ//+lNm3kWAKXjGDZg2/aWjKEAtg==
@@ -12693,7 +12701,11 @@ react-side-effect@^1.1.0:
   dependencies:
     shallowequal "^1.0.1"
 
+<<<<<<< HEAD
 react-social-login-buttons@3.4.6:
+=======
+react-social-login-buttons@^3.0.0:
+>>>>>>> cff2a1c7a98b421292594ef650bcebc417b478f8
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-social-login-buttons/-/react-social-login-buttons-3.0.0.tgz#e70af9ee6b0cf4e7339094a1fcbe5a466c55068e"
   integrity sha512-G9/qDbxWWmX1Y3Oq/jVI5pQF9kml2CI/+YerZfCcbiHgO59592xfUXRrbh38gUfNs0lj/pXAS4dZ99VK27yO9w==

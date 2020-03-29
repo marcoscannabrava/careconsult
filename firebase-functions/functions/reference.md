@@ -1,7 +1,7 @@
 # Reference for some material on working with Firebase
 
 - [React + Firebase App: Calling Firebase Database](https://www.codementor.io/@yurio/all-you-need-is-react-firebase-4v7g9p4kf)
-- [React + Firebase App: Calling Firebase Database 2 (PT)](https://www.codementor.io/@yurio/all-you-need-is-react-firebase-4v7g9p4kf)
+
 ..............................................................................................
 
 [Return List of Faker Products](https://invertase.io/oss/react-native-firebase/guides/getting-started-with-cloud-functions)
