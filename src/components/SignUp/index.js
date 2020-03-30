@@ -33,7 +33,7 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = event => {
-    const { username, email, passwordOne, isAdmin } = this.state;
+    const { username, email, passwordOne, isAdmin, userType } = this.state;
     const roles = {};
 
     if (isAdmin) {
@@ -48,6 +48,7 @@ class SignUpFormBase extends Component {
           username,
           email,
           roles,
+          userType
         });
       })
       .then(() => {
