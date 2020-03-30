@@ -35,10 +35,19 @@ export const getTimeSlots = onTimeSlotsChange => {
 }
 
 export const updateSlot = (event, onComplete) => {
-  console.log("event");
-  console.log(event);
+  const currentUser = getFirebase().auth.currentUser;
+
+  const timeSlot = {
+    id: event.id,
+    userId: currentUser.uid, // [TODO] insert check to only allow users to change their own events
+    allDay: event.start === event.end ? true : false,
+    title: currentUser.displayName || "Anonymous Volunteer",
+    start: event.start.toISOString(),
+    end: event.end.toISOString()
+  }
+
   return getFirebase().db.ref('timeSlots').update(
-    {[`/${event.id}`]: event},
+    {[`/${event.id}`]: timeSlot},
     onComplete(event)
     );
 }

@@ -16,6 +16,7 @@ class MyCalendar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      ...this.state,
       events: [],
       defaultView:'week'
     }
@@ -25,64 +26,31 @@ class MyCalendar extends React.Component {
   }
 
   moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
-    const { events } = this.state
-
-    const idx = events.indexOf(event)
-    let allDay = event.allDay
-
-    if (!event.allDay && droppedOnAllDaySlot) {
-      allDay = true
-    } else if (event.allDay && !droppedOnAllDaySlot) {
-      allDay = false
-    }
-
-    const updatedEvent = { ...event, start, end, allDay }
-
-    const nextEvents = [...events]
-    nextEvents.splice(idx, 1, updatedEvent)
-
-    this.setState({
-      events: nextEvents,
-    })
-
-    // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
+    const updatedEvent = { ...event, start, end };
+    updateSlot(updatedEvent, (eventFromDB) => {
+      this.setState({ events: this.state.events.concat([eventFromDB]) })
+    });
   }
 
   resizeEvent = (event) => {
-    // const { events } = this.state
-
-    // const nextEvents = events.map(existingEvent => {
-    //   return existingEvent.id == event.id
-    //     ? { ...existingEvent, start, end }
-    //     : existingEvent
-    // })
-  
-    // console.log(this.props);
+    console.log(event);
     updateSlot(event, (event) => {
-      this.setState({ events: this.state.events.push(event) })
+      this.setState({ events: this.state.events.concat([event]) })
     });
-    
   }
 
   newEvent(event) {
-    let idList = this.state.events.map(a => a.id)
-    let newId = Math.max(...idList) + 1
     let timeSlot = {
-    id: newId,
-    title: 'New Volunteer Time Slot',
-    allDay: event.slots.length === 1,
-    start: event.start,
-    end: event.end,
+      title: 'New Volunteer Time Slot',
+      allDay: event.slots.length === 1,
+      start: event.start,
+      end: event.end,
     };
-
     createSlot(timeSlot);
   }
 
-
 componentDidMount(){
-  console.log("props on mount");
-  console.log(this.props);
-  // this.updateCalendarEvents = getTimeSlots(events => this.setState({ events }));
+  this.updateCalendarEvents = getTimeSlots(events => this.setState({ events }));
 }
 
 
@@ -117,12 +85,11 @@ componentDidUpdate(){
   }
 
   render() {
-    // console.log("state");
-    // console.log(this.state);
     // console.log("props on render");
-    // console.log(this.props);
+    // console.log(this.props);     // Why is firebase only here and not anywhere else?
     return (
       <DragAndDropCalendar
+        {...this.props}
         selectable
         localizer={localizer}
         events={this.state.events}
@@ -135,7 +102,6 @@ componentDidUpdate(){
         defaultDate={new Date()}
         style={{ height: "80vh" }}
         onSelectEvent = {this.onClick}
-        firebase={this.props.firebase}
       />
     )
   }
@@ -144,7 +110,3 @@ componentDidUpdate(){
 const CalendarComponent = withFirebase(MyCalendar);
 
 export default CalendarComponent;
-
-// export default () => (
-//       <MyCalendar />
-//   );
