@@ -5,7 +5,6 @@ import SignUpForm from '../components/SignUp';
 
 const SignUpPage = () => (
   <Fragment>
-    <h1>SignUp</h1>
     <SignUpForm />
   </Fragment>
 );
