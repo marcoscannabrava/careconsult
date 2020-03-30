@@ -1,43 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import ReactDOM from 'react-dom';
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import Layout from './Layout';
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { createSlot, getTimeSlots } from './Firebase/calendar';
+import { createSlot, getTimeSlots, updateSlot } from './Firebase/calendar';
+import { withFirebase } from "./Firebase";
 
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar)
-const calEvents = [
-  {
-    start: moment().toDate(),
-    end: moment()
-      .add(1, "hours")
-      .toDate(),
-    allDay: false,
-    title: "Some title",
-    id:1
-  },
-  {
-    start: moment().toDate(),
-    end: moment()
-      .add(2, "hours")
-      .toDate(),
-    allDay: false,
-    title: "Another Title",
-    id:2
-  }
-]
 
 
 class MyCalendar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      events: calEvents,
+      events: [],
       defaultView:'week'
     }
     this.onClick = this.onClick.bind(this);
@@ -69,20 +48,20 @@ class MyCalendar extends React.Component {
     // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
   }
 
-  resizeEvent = ({ event, start, end }) => {
-    const { events } = this.state
+  resizeEvent = (event) => {
+    // const { events } = this.state
 
-    const nextEvents = events.map(existingEvent => {
-      return existingEvent.id == event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent
-    })
-
-    this.setState({
-      events: nextEvents,
-    })
-
-    //alert(`${event.title} was resized to ${start}-${end}`)
+    // const nextEvents = events.map(existingEvent => {
+    //   return existingEvent.id == event.id
+    //     ? { ...existingEvent, start, end }
+    //     : existingEvent
+    // })
+  
+    // console.log(this.props);
+    updateSlot(event, (event) => {
+      this.setState({ events: this.state.events.push(event) })
+    });
+    
   }
 
   newEvent(event) {
@@ -91,7 +70,7 @@ class MyCalendar extends React.Component {
     let timeSlot = {
     id: newId,
     title: 'New Volunteer Time Slot',
-    allDay: event.slots.length == 1,
+    allDay: event.slots.length === 1,
     start: event.start,
     end: event.end,
     };
@@ -101,7 +80,9 @@ class MyCalendar extends React.Component {
 
 
 componentDidMount(){
-    this.updateCalendarEvents = getTimeSlots(events => this.setState({ events }));
+  console.log("props on mount");
+  console.log(this.props);
+  // this.updateCalendarEvents = getTimeSlots(events => this.setState({ events }));
 }
 
 
@@ -136,7 +117,10 @@ componentDidUpdate(){
   }
 
   render() {
+    // console.log("state");
     // console.log(this.state);
+    // console.log("props on render");
+    // console.log(this.props);
     return (
       <DragAndDropCalendar
         selectable
@@ -145,18 +129,22 @@ componentDidUpdate(){
         onEventDrop={this.moveEvent}
         resizable
         onEventResize={this.resizeEvent}
-        onSelectSlot={this.newEvent}
+        onSelectSlot={this.newEvent} // [TODO] make it condition on user role: only health providers allowed
         onDragStart={console.log}
         defaultView={this.state.defaultView}
         defaultDate={new Date()}
-        style={{ height: "100vh" }}
+        style={{ height: "80vh" }}
         onSelectEvent = {this.onClick}
+        firebase={this.props.firebase}
       />
     )
   }
 }
 
+const CalendarComponent = withFirebase(MyCalendar);
 
-export default () => (
-      <MyCalendar />
-  );
+export default CalendarComponent;
+
+// export default () => (
+//       <MyCalendar />
+//   );

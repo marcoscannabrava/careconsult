@@ -33,7 +33,7 @@ The Covid-19 pandemic is straining healthcare systems around the globe. CareCons
 - Add other types of certified health professionals? Psychologists etc. 
 - Seed list of providers? Can start with NYC medical board website and scrape Dr list? 
 
-### Installation (development)
+### Installation
 
 ```bash
 git clone git@github.com:marcoscannabrava/free-covid-consultation-calendar.git care-consult

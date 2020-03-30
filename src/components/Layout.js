@@ -33,7 +33,7 @@ class Layout extends Component {
 
 const AppWithAuthentication = withAuthentication(({ children }) => (
   <Fragment>
-    {/* <Navigation /> */}
+    {/* <Navigation /> */} 
     <TemplateWrapper>
       {children}
     </TemplateWrapper>
