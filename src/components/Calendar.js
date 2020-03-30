@@ -1,118 +1,123 @@
-import React, { Component } from "react";
+import React from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import ReactDOM from 'react-dom';
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import Layout from './Layout';
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { createSlot, getTimeSlots } from './Firebase/calendar';
+import { withFirebase } from "./Firebase";
 
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar)
-const calEvents = [
-  {
-    start: moment().toDate(),
-    end: moment()
-      .add(1, "hours")
-      .toDate(),
-    allDay: false,
-    title: "Some title",
-    id:1
-  },
-  {
-    start: moment().toDate(),
-    end: moment()
-      .add(2, "hours")
-      .toDate(),
-    allDay: false,
-    title: "Another Title",
-    id:2
-  }
-]
 
 
 class MyCalendar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      events: calEvents,
+      ...this.state,
+      events: [],
       defaultView:'week'
     }
     this.onClick = this.onClick.bind(this);
     this.moveEvent = this.moveEvent.bind(this)
     this.newEvent = this.newEvent.bind(this)
   }
+  
+  // --------------------- Database Functions ---------------------
+  getTimeSlots = onTimeSlotsChange => {
 
-  moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
-    const { events } = this.state
+    if (!this.props.firebase) return
 
-    const idx = events.indexOf(event)
-    let allDay = event.allDay
-
-    if (!event.allDay && droppedOnAllDaySlot) {
-      allDay = true
-    } else if (event.allDay && !droppedOnAllDaySlot) {
-      allDay = false
-    }
-
-    const updatedEvent = { ...event, start, end, allDay }
-
-    const nextEvents = [...events]
-    nextEvents.splice(idx, 1, updatedEvent)
-
-    this.setState({
-      events: nextEvents,
+    const timeSlotsRef = this.props.firebase.db.ref('timeSlots');
+    timeSlotsRef.on('value', snapshot => {
+      const snapshotValue = snapshot.val();
+      const events = Object.values(snapshotValue);
+      events.map((event) => {
+        event.start = new Date(event.start);
+        event.end = new Date(event.end);
+      });
+      onTimeSlotsChange(events);
     })
-
-    // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
+    
+    return () => timeSlotsRef.off('value');
   }
 
-  resizeEvent = ({ event, start, end }) => {
-    const { events } = this.state
-
-    const nextEvents = events.map(existingEvent => {
-      return existingEvent.id == event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent
+  createSlot = hour => {
+    const currentUser = this.props.firebase.auth.currentUser;
+    
+    const slotKey = this.props.firebase.db.ref('timeSlots').push().key;
+  
+    const timeSlot = {
+      id: slotKey,
+      userId: currentUser.uid,
+      allDay: hour.start === hour.end ? true : false,
+      title: currentUser.displayName || "Anonymous Volunteer",
+      start: hour.start.toISOString(),
+      end: hour.end.toISOString()
+    }
+    
+    return this.props.firebase.db.ref('timeSlots').update({
+      [`/${slotKey}`]: timeSlot,
     })
+  }
+  
+  updateSlot = (event, onComplete) => {
+    const currentUser = this.props.firebase.auth.currentUser;
+  
+    const timeSlot = {
+      id: event.id,
+      userId: currentUser.uid, // [TODO] insert check to only allow users to change their own events
+      allDay: event.start === event.end ? true : false,
+      title: currentUser.displayName || "Anonymous Volunteer",
+      start: event.start.toISOString(),
+      end: event.end.toISOString()
+    }
+  
+    return this.props.firebase.db.ref('timeSlots').update(
+      {[`/${event.id}`]: timeSlot},
+      onComplete(event)
+      );
+  }
 
-    this.setState({
-      events: nextEvents,
-    })
+  deleteSlot = (event) => {
+    return this.props.firebase.db.ref('timeSlots').child(`/${event.id}`).remove();
+  }
 
-    //alert(`${event.title} was resized to ${start}-${end}`)
+  // --------------------- Database Functions (END) ---------------------
+
+  updateCalendarEvents = () => this.getTimeSlots(events => this.setState({ events }));
+
+  moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
+    const updatedEvent = { ...event, start, end };
+    this.updateSlot(updatedEvent, (eventFromDB) => {
+      this.setState({ events: this.state.events.concat([eventFromDB]) })
+    });
+  }
+
+  resizeEvent = (event) => {
+    console.log(event);
+    this.updateSlot(event, (event) => {
+      this.setState({ events: this.state.events.concat([event]) })
+    });
   }
 
   newEvent(event) {
-    let idList = this.state.events.map(a => a.id)
-    let newId = Math.max(...idList) + 1
     let timeSlot = {
-    id: newId,
-    title: 'New Volunteer Time Slot',
-    allDay: event.slots.length == 1,
-    start: event.start,
-    end: event.end,
+      title: 'New Volunteer Time Slot',
+      allDay: event.slots.length === 1,
+      start: event.start,
+      end: event.end,
     };
-
-    createSlot(timeSlot);
-
-    this.setState({
-      events: this.state.events.concat([timeSlot]),
-    })
+    this.createSlot(timeSlot);
   }
 
 
-componentDidMount(){
-    this.updateCalendarEvents = getTimeSlots(events => this.setState({ events }));
-}
-
-
-onClick(pEvent,event) {
+  onClick(pEvent,event) {
     if(event.target.className === "rbc-trash"){
       const r = window.confirm("Would you like to remove this event?")
       if(r === true){
+        this.deleteSlot(event);
         this.setState((prevState, props) => {
           const events = [...prevState.events]
           const idx = events.indexOf(pEvent)
@@ -124,9 +129,13 @@ onClick(pEvent,event) {
     
   }
 
-componentDidUpdate(){
+  componentDidUpdate(prevProps, prevState){
     const eventDiv = document.getElementsByClassName('rbc-event');
-    // console.log(eventDiv);
+
+    if (this.state.events.length === 0) {
+      this.updateCalendarEvents();
+    }
+    
     for(let elem of eventDiv){
       if(!elem.querySelector(".rbc-trash")){ //prevent duplicate icons from being added to event
       let el = document.createElement('div');
@@ -140,27 +149,26 @@ componentDidUpdate(){
   }
 
   render() {
-    // console.log(this.state);
     return (
       <DragAndDropCalendar
+        {...this.props}
         selectable
         localizer={localizer}
         events={this.state.events}
         onEventDrop={this.moveEvent}
         resizable
         onEventResize={this.resizeEvent}
-        onSelectSlot={this.newEvent}
+        onSelectSlot={this.newEvent} // [TODO] make it condition on user role: only health providers allowed
         onDragStart={console.log}
         defaultView={this.state.defaultView}
         defaultDate={new Date()}
-        style={{ height: "100vh" }}
+        style={{ height: "80vh", padding: "20px 20px" }}
         onSelectEvent = {this.onClick}
       />
     )
   }
 }
 
+const CalendarComponent = withFirebase(MyCalendar);
 
-export default () => (
-      <MyCalendar />
-  );
+export default CalendarComponent;

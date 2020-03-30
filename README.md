@@ -10,16 +10,17 @@ The Covid-19 pandemic is straining healthcare systems around the globe. CareCons
 - Introduce yourself and let us know what you're working on or if you want to pair with one of us
 
 ### Pending Tasks
-- [ ] Calendar Component ([suggestion](https://github.com/jquense/react-big-calendar))
 - [ ] More branding/marketing assets (text, images)
 - [ ] Social Media Assets/Strategy
 - [ ] Better design
+- [x] Calendar Component ([suggestion](https://github.com/jquense/react-big-calendar))
 - [x] SignUp/SignIn screens frontend
 
 #### Pending User Stories
-- [ ] Not Logged: Show Available Slots
-- [ ] Provider Logged Schedule Available Slot
 - [ ] User (“Patient”) Logged: Schedule Appointment
+- [ ] Add roles: Patient / Provider
+- [x] Not Logged: Show Available Slots
+- [x] Provider Logged Schedule Available Slot
 
 ### Wireframe
 ![wireframe](care-consult-wireframe-v1.png)
@@ -32,7 +33,7 @@ The Covid-19 pandemic is straining healthcare systems around the globe. CareCons
 - Add other types of certified health professionals? Psychologists etc. 
 - Seed list of providers? Can start with NYC medical board website and scrape Dr list? 
 
-### Installation (development)
+### Installation
 
 ```bash
 git clone git@github.com:marcoscannabrava/free-covid-consultation-calendar.git care-consult
