@@ -17,13 +17,13 @@ const HomePageBase = () => (
   </div>
 );
 
-// const condition = authUser => !!authUser;
-// const HomePage = compose(
-//   withEmailVerification,
-//   withAuthorization(condition),
-// )(HomePageBase);
+const condition = authUser => !!authUser;
+const HomePage = compose(
+  withEmailVerification,
+  withAuthorization(condition),
+)(HomePageBase);
 
-const HomePage = HomePageBase;
+// const HomePage = HomePageBase;
 
 
 export default () => (
