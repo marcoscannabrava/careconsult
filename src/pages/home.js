@@ -7,10 +7,10 @@ import {
   withEmailVerification,
 } from '../components/Session';
 import Messages from '../components/Messages';
+import logo from '../img/careconsult.svg'
 
 const HomePageBase = () => (
   <div>
-    <h1>Appointment Scheduling</h1>
     {/*The Home Page is accessible by every signed in user.*/}
     <Calendar/>
     <Messages />

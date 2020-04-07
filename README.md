@@ -10,10 +10,11 @@ The Covid-19 pandemic is straining healthcare systems around the globe. CareCons
 - Introduce yourself and let us know what you're working on or if you want to pair with one of us
 
 ### Pending Tasks
-- [ ] Fix Resize/Delete Events
+- [ ] Hide Login Button When Logged In
 - [ ] More branding/marketing assets (text, images)
 - [ ] Social Media Assets/Strategy
 - [ ] Better design
+- [x] Fix Resize/Delete Events
 - [x] Calendar Component ([suggestion](https://github.com/jquense/react-big-calendar))
 - [x] SignUp/SignIn screens frontend
 
