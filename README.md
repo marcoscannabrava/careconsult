@@ -5,22 +5,24 @@
 The Covid-19 pandemic is straining healthcare systems around the globe. CareConsult was created to connect licensed volunteer health professionals with patients at home to reduce the burden on hospitals and clinics.
 
 ## Contribute 
-- Check the [Kanban Board](https://github.com/users/marcoscannabrava/projects/1)
 - Join our [Slack Channel #free-covid-consultations @ COVID19 Global Hackathon](https://join.slack.com/t/globalcovidhackathon/shared_invite/zt-d25lrhkl-UAKmMq4h_zNzCQhqnNsbfw)
 - Introduce yourself and let us know what you're working on or if you want to pair with one of us
 
 ### Pending Tasks
-- [ ] Hide Login Button When Logged In
+- [ ] Fix Resize/Delete Events
+- [ ] Improve Footer Component
 - [ ] More branding/marketing assets (text, images)
 - [ ] Social Media Assets/Strategy
 - [ ] Better design
-- [x] Fix Resize/Delete Events
+- [ ] Fix Signup (@Marcos on the ticket)
+- [x] Hide Login Button When Logged In
 - [x] Calendar Component ([suggestion](https://github.com/jquense/react-big-calendar))
 - [x] SignUp/SignIn screens frontend
 
 #### Pending User Stories
 - [ ] User (“Patient”) Logged: Schedule Appointment
-- [ ] Add roles: Patient / Provider
+- [ ] User (“Provider”) Logged: Open Available Time Slot (block Patients from opening time slots)
+- [x] Add roles: Patient / Provider
 - [x] Not Logged: Show Available Slots
 - [x] Provider Logged Schedule Available Slot
 

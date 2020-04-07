@@ -1,8 +1,18 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import { AuthUserContext } from './Session';
+import SignOutBtn from './SignOut';
+import * as ROUTES from '../constants/routes';
+
 import github from '../img/github-icon.svg'
 import logo from '../img/careconsult.svg'
-import * as ROUTES from '../constants/routes';
+
+const NavbarComponent = () => (
+  <AuthUserContext.Consumer>
+    {authUser => <Navbar authUser={authUser} />}
+  </AuthUserContext.Consumer>
+);
+
 
 const Navbar = class extends React.Component {
   constructor(props) {
@@ -43,7 +53,7 @@ const Navbar = class extends React.Component {
         <div className="container">
           <div className="navbar-brand">
             <Link to="/" className="navbar-item" title="Logo">
-              <img src={logo} alt="CareConsult" style={{ width: '88px' }} />
+              <img src={logo} alt="CareConsult" />
             </Link>
             {/* Hamburger menu */}
             <div
@@ -56,6 +66,7 @@ const Navbar = class extends React.Component {
               <span />
             </div>
           </div>
+
           <div
             id="navMenu"
             className={`navbar-menu ${this.state.navBarActiveClass}`}
@@ -64,31 +75,24 @@ const Navbar = class extends React.Component {
               <Link className="navbar-item" to="/about">
                 About
               </Link>
-              <Link className="navbar-item" to="/home">
-                Calendar
-              </Link>
               <Link className="navbar-item" to="/contact">
                 Contact
               </Link>
-              {/*<Link className="navbar-item" to="/products">
-                Products
+              <Link className="navbar-item" to="/home">
+                <b>Calendar</b>
               </Link>
-              <Link className="navbar-item" to="/blog">
-                Blog
-              </Link>
-             
-              <Link className="navbar-item" to="/contact/examples">
-                Form Examples
-              </Link>
-              */}
             </div>
+
             <div className="navbar-end has-text-centered">
-            {/*<Link className="navbar-item" to={ROUTES.SIGN_UP}> 
-                Sign Up
-            </Link>*/}
-              <Link className="navbar-item" to={ROUTES.SIGN_IN}>
+              {/* <Link className="navbar-item" to={ROUTES.SIGN_IN}>
                 Log In
-              </Link>
+              </Link> */}
+              {!this.props.authUser && (
+                  <Link className="navbar-item" to={ROUTES.SIGN_IN}>Log In</Link>
+              )}
+              {!!this.props.authUser && (
+                  <SignOutBtn className="navbar-item" to={ROUTES.SIGN_IN}>Log In</SignOutBtn>
+              )}
               <a
                 className="navbar-item"
                 href="https://github.com/marcoscannabrava/free-covid-consultation-calendar"
@@ -99,8 +103,8 @@ const Navbar = class extends React.Component {
                   <img src={github} alt="Github" />
                 </span>
               </a>
-              
             </div>
+
           </div>
         </div>
       </nav>
@@ -108,4 +112,4 @@ const Navbar = class extends React.Component {
   }
 }
 
-export default Navbar
+export default NavbarComponent
