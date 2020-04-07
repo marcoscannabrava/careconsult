@@ -1,14 +1,17 @@
 import React from 'react';
+import { Link } from 'gatsby'
+import * as ROUTES from '../../constants/routes';
 
 import { withFirebase } from '../Firebase';
 
 const SignOutButton = ({ firebase }) => (
-  <button
-    type="button"
+  <Link 
+    className="navbar-item" 
+    to={ROUTES.LANDING}
     onClick={firebase ? firebase.doSignOut : () => {}}
   >
     Sign Out
-  </button>
+  </Link>
 );
 
 export default withFirebase(SignOutButton);

@@ -7,23 +7,23 @@ import {
   withEmailVerification,
 } from '../components/Session';
 import Messages from '../components/Messages';
+// import logo from '../img/careconsult.svg'
 
 const HomePageBase = () => (
   <div>
-    <h1>Appointment Scheduling</h1>
     {/*The Home Page is accessible by every signed in user.*/}
     <Calendar/>
     <Messages />
   </div>
 );
 
-const condition = authUser => !!authUser;
-const HomePage = compose(
-  withEmailVerification,
-  withAuthorization(condition),
-)(HomePageBase);
+// const condition = authUser => !!authUser;
+// const HomePage = compose(
+//   withEmailVerification,
+//   withAuthorization(condition),
+// )(HomePageBase);
 
-// const HomePage = HomePageBase;
+const HomePage = HomePageBase;
 
 
 export default () => (
