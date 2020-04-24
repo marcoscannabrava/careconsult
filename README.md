@@ -1,12 +1,16 @@
-# CareConsult
+![CareConsult](src/img/careconsult.svg)
 [Live Site](https://ecstatic-leavitt-3a8f13.netlify.com/)
 
 ## Why CareConsult
 The Covid-19 pandemic is straining healthcare systems around the globe. CareConsult was created to connect licensed volunteer health professionals with patients at home to reduce the burden on hospitals and clinics.
 
 ## Contribute 
-- Join our [Slack Channel #free-covid-consultations @ COVID19 Global Hackathon](https://join.slack.com/t/globalcovidhackathon/shared_invite/zt-d25lrhkl-UAKmMq4h_zNzCQhqnNsbfw)
-- Introduce yourself and let us know what you're working on or if you want to pair with one of us
+- Create a pull request, introduce yourself through email or participate in our weekly meetings.
+- Join our [Slack Channel #free-covid-consultations @ COVID19 Global Hackathon](https://join.slack.com/t/globalcovidhackathon/shared_invite/zt-d25lrhkl-UAKmMq4h_zNzCQhqnNsbfw) for more info!
+
+#### [Project Shared Living Document on Notion](https://www.notion.so/careconsult)⭐
+#### [DevPost Global Hackathon](https://devpost.com/software/careconsult-xbvp3u)
+#### [HelpWithCovid](https://helpwithcovid.com/)
 
 ### Pending Tasks
 - [ ] Fix Resize/Delete Events
@@ -20,17 +24,17 @@ The Covid-19 pandemic is straining healthcare systems around the globe. CareCons
 - [x] SignUp/SignIn screens frontend
 
 #### Pending User Stories
-- [ ] User (“Patient”) Logged: Schedule Appointment
-- [ ] User (“Provider”) Logged: Open Available Time Slot (block Patients from opening time slots)
-- [x] Add roles: Patient / Provider
-- [x] Not Logged: Show Available Slots
-- [x] Provider Logged Schedule Available Slot
+- A user can sign up with the role of volunteer. (⏳pending)
+- A user with the role of volunteer can create time slots of available remote consultation time. (⏳pending)
+- Any user (not logged in) can book a time with an available volunteer. (⏳pending)
+    - The user's email is requested and an email and calendar invite is sent to both booker and volunteer. (⏳pending)
+    - That timeslot is blocked for other users. (⏳pending)
 
 ### Wireframe
 ![wireframe](care-consult-wireframe-v1.png)
 
 ## Other Features
-- Video chat functionality? Maybe it only needs audio for POC. Could use Jitsi 
+- Video chat functionality? Doxy.me
 - Ability for providers to initiate verification process
 - Would need to hook into various state medical board DBs in the US
 - Ability for platform to take into account license expiration date
