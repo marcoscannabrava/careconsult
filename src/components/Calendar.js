@@ -44,6 +44,7 @@ class MyCalendar extends React.Component {
   }
 
   createSlot = hour => {
+    
     const currentUser = this.props.firebase.auth.currentUser;
     
     const slotKey = this.props.firebase.db.ref('timeSlots').push().key;
@@ -70,8 +71,8 @@ class MyCalendar extends React.Component {
       userId: currentUser.uid, // [TODO] insert check to only allow users to change their own events
       allDay: event.start === event.end ? true : false,
       title: currentUser.displayName || "Anonymous Volunteer",
-      start: event.start.toISOString(),
-      end: event.end.toISOString()
+      start: event.start,
+      end: event.end
     }
   
     return this.props.firebase.db.ref('timeSlots').update(
@@ -81,7 +82,10 @@ class MyCalendar extends React.Component {
   }
 
   deleteSlot = (event) => {
-    return this.props.firebase.db.ref('timeSlots').child(`/${event.id}`).remove();
+
+    console.log(event,`timeSlots/${event.id}`)
+
+    return this.props.firebase.db.ref(`timeSlots/${event.id}`).set(null);
   }
 
   // --------------------- Database Functions (END) ---------------------
@@ -109,22 +113,20 @@ class MyCalendar extends React.Component {
       start: event.start,
       end: event.end,
     };
+    
     this.createSlot(timeSlot);
+    this.updateCalendarEvents();
   }
 
 
   onClick(pEvent,event) {
     if(event.target.className === "rbc-trash"){
-      const r = window.confirm("Would you like to remove this event?")
-      if(r === true){
-        this.deleteSlot(event);
-        this.setState((prevState, props) => {
-          const events = [...prevState.events]
-          const idx = events.indexOf(pEvent)
-          events.splice(idx, 1);
-          return { events };
-        });
-      }
+      //const r = window.confirm("Would you like to remove this event?")
+      //if(r === true){
+        console.log(pEvent,"onClick")
+        this.deleteSlot(pEvent);
+        this.updateCalendarEvents()
+    //}
    }
     
   }
@@ -133,7 +135,7 @@ class MyCalendar extends React.Component {
     const eventDiv = document.getElementsByClassName('rbc-event');
 
     if (this.state.events.length === 0) {
-      this.updateCalendarEvents();
+       this.updateCalendarEvents();
     }
     
     for(let elem of eventDiv){
