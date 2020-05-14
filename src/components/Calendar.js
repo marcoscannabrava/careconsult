@@ -99,10 +99,10 @@ class MyCalendar extends React.Component {
     });
   }
 
-  resizeEvent = (event) => {
-    console.log(event);
-    this.updateSlot(event, (event) => {
-      this.setState({ events: this.state.events.concat([event]) })
+  resizeEvent = ({ event, start, end}) => {
+    const updatedEvent = { ...event, start, end };
+    this.updateSlot(updatedEvent, (eventFromDB) => {
+      this.setState({ events: this.state.events.concat([eventFromDB]) })
     });
   }
 
