@@ -1,17 +1,18 @@
-import React from "react";
+import React, {Component} from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { withFirebase } from "./Firebase";
+import CustomEvent from './CustomEvent'
 
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
 
-class MyCalendar extends React.Component {
+class MyCalendar extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -118,8 +119,24 @@ class MyCalendar extends React.Component {
     this.updateCalendarEvents();
   }
 
+  /*addCalendarDeleteButton(){
+    console.log("updated")
+    const eventDiv = document.getElementsByClassName('rbc-event');
+    for(let elem of eventDiv){
+      if(!elem.querySelector(".rbc-trash")){ //prevent duplicate icons from being added to event
+      let el = document.createElement('div');
+      el.innerHTML = 'X';
+      el.style.left = "-11px";
+      el.style.position = "relative";
+      el.className = "rbc-trash"
+      elem.appendChild(el)
+    }
+  }
+  }*/
+
 
   onClick(pEvent,event) {
+    
     if(event.target.className === "rbc-trash"){
       //const r = window.confirm("Would you like to remove this event?")
       //if(r === true){
@@ -131,23 +148,19 @@ class MyCalendar extends React.Component {
     
   }
 
+  componentDidMount(){
+    //this.addCalendarDeleteButton()
+  }
+
   componentDidUpdate(prevProps, prevState){
-    const eventDiv = document.getElementsByClassName('rbc-event');
+   
 
     if (this.state.events.length === 0) {
        this.updateCalendarEvents();
     }
     
-    for(let elem of eventDiv){
-      if(!elem.querySelector(".rbc-trash")){ //prevent duplicate icons from being added to event
-      let el = document.createElement('div');
-      el.innerHTML = 'X';
-      el.style.left = "-11px";
-      el.style.position = "relative";
-      el.className = "rbc-trash"
-      elem.appendChild(el)
-    }
-  }
+    //this.addCalendarDeleteButton()
+
   }
 
   render() {
@@ -155,6 +168,9 @@ class MyCalendar extends React.Component {
       <DragAndDropCalendar
         {...this.props}
         selectable
+        components={{
+          event:CustomEvent,
+        }}
         localizer={localizer}
         events={this.state.events}
         onEventDrop={this.moveEvent}
