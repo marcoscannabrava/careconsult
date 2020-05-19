@@ -6,6 +6,7 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { withFirebase } from "./Firebase";
 import CustomEvent from './CustomEvent'
+import EventModal from "./EventModal";
 
 
 const localizer = momentLocalizer(moment);
@@ -18,11 +19,14 @@ class MyCalendar extends Component {
     this.state = {
       ...this.state,
       events: [],
-      defaultView:'week'
+      defaultView:'week',
+      modalDisplay:false,
+      selectedEvent: null
     }
-    this.onClick = this.onClick.bind(this);
+    this.onClick = this.onClick.bind(this)
     this.moveEvent = this.moveEvent.bind(this)
     this.newEvent = this.newEvent.bind(this)
+    this.loadEventModal = this.loadEventModal.bind(this)
   }
   
   // --------------------- Database Functions ---------------------
@@ -93,6 +97,11 @@ class MyCalendar extends Component {
 
   updateCalendarEvents = () => this.getTimeSlots(events => this.setState({ events }));
 
+  loadEventModal(event){
+   this.setState({modalDisplay:true})
+   this.setState({selectedEvent:event})
+  }
+
   moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
     const updatedEvent = { ...event, start, end };
     this.updateSlot(updatedEvent, (eventFromDB) => {
@@ -119,20 +128,6 @@ class MyCalendar extends Component {
     this.updateCalendarEvents();
   }
 
-  /*addCalendarDeleteButton(){
-    console.log("updated")
-    const eventDiv = document.getElementsByClassName('rbc-event');
-    for(let elem of eventDiv){
-      if(!elem.querySelector(".rbc-trash")){ //prevent duplicate icons from being added to event
-      let el = document.createElement('div');
-      el.innerHTML = 'X';
-      el.style.left = "-11px";
-      el.style.position = "relative";
-      el.className = "rbc-trash"
-      elem.appendChild(el)
-    }
-  }
-  }*/
 
 
   onClick(pEvent,event) {
@@ -148,10 +143,6 @@ class MyCalendar extends Component {
     
   }
 
-  componentDidMount(){
-    //this.addCalendarDeleteButton()
-  }
-
   componentDidUpdate(prevProps, prevState){
    
 
@@ -165,6 +156,7 @@ class MyCalendar extends Component {
 
   render() {
     return (
+      <React.Fragment>
       <DragAndDropCalendar
         {...this.props}
         selectable
@@ -174,6 +166,7 @@ class MyCalendar extends Component {
         localizer={localizer}
         events={this.state.events}
         onEventDrop={this.moveEvent}
+        onDoubleClickEvent={this.loadEventModal}
         resizable
         onEventResize={this.resizeEvent}
         onSelectSlot={this.newEvent} // [TODO] make it condition on user role: only health providers allowed
@@ -183,6 +176,9 @@ class MyCalendar extends Component {
         style={{ height: "80vh", padding: "20px 20px" }}
         onSelectEvent = {this.onClick}
       />
+      <EventModal event={this.state.selectedEvent} isShowing={this.state.modalDisplay} hide={()=>{this.setState({modalDisplay:false})}}></EventModal>
+      </React.Fragment>
+     
     )
   }
 }
