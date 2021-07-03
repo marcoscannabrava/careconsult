@@ -39,3 +39,10 @@
     background: none;
     margin-bottom: 5px;
 }
+
+.rbc-trash{
+    position: absolute;
+    left: top;
+    top: 0px;
+    right: 0px;
+}
