@@ -1,27 +1,32 @@
-import React from "react";
+import React, {Component} from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { withFirebase } from "./Firebase";
+import CustomEvent from './CustomEvent'
+import EventModal from "./EventModal";
 
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
 
-class MyCalendar extends React.Component {
+class MyCalendar extends Component {
   constructor(props) {
     super(props)
     this.state = {
       ...this.state,
       events: [],
-      defaultView:'week'
+      defaultView:'week',
+      modalDisplay:false,
+      selectedEvent: null
     }
-    this.onClick = this.onClick.bind(this);
+    this.onClick = this.onClick.bind(this)
     this.moveEvent = this.moveEvent.bind(this)
     this.newEvent = this.newEvent.bind(this)
+    this.loadEventModal = this.loadEventModal.bind(this)
   }
   
   // --------------------- Database Functions ---------------------
@@ -92,6 +97,11 @@ class MyCalendar extends React.Component {
 
   updateCalendarEvents = () => this.getTimeSlots(events => this.setState({ events }));
 
+  loadEventModal(event){
+   this.setState({modalDisplay:true})
+   this.setState({selectedEvent:event})
+  }
+
   moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
     const updatedEvent = { ...event, start, end };
     this.updateSlot(updatedEvent, (eventFromDB) => {
@@ -119,7 +129,9 @@ class MyCalendar extends React.Component {
   }
 
 
+
   onClick(pEvent,event) {
+    
     if(event.target.className === "rbc-trash"){
       //const r = window.confirm("Would you like to remove this event?")
       //if(r === true){
@@ -132,32 +144,29 @@ class MyCalendar extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    const eventDiv = document.getElementsByClassName('rbc-event');
+   
 
     if (this.state.events.length === 0) {
        this.updateCalendarEvents();
     }
     
-    for(let elem of eventDiv){
-      if(!elem.querySelector(".rbc-trash")){ //prevent duplicate icons from being added to event
-      let el = document.createElement('div');
-      el.innerHTML = 'X';
-      el.style.left = "-11px";
-      el.style.position = "relative";
-      el.className = "rbc-trash"
-      elem.appendChild(el)
-    }
-  }
+    //this.addCalendarDeleteButton()
+
   }
 
   render() {
     return (
+      <React.Fragment>
       <DragAndDropCalendar
         {...this.props}
         selectable
+        components={{
+          event:CustomEvent,
+        }}
         localizer={localizer}
         events={this.state.events}
         onEventDrop={this.moveEvent}
+        onDoubleClickEvent={this.loadEventModal}
         resizable
         onEventResize={this.resizeEvent}
         onSelectSlot={this.newEvent} // [TODO] make it condition on user role: only health providers allowed
@@ -167,6 +176,9 @@ class MyCalendar extends React.Component {
         style={{ height: "80vh", padding: "20px 20px" }}
         onSelectEvent = {this.onClick}
       />
+      <EventModal event={this.state.selectedEvent} isShowing={this.state.modalDisplay} hide={()=>{this.setState({modalDisplay:false})}}></EventModal>
+      </React.Fragment>
+     
     )
   }
 }
